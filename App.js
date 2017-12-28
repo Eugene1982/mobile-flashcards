@@ -4,6 +4,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import DeckList from './components/DeckList'
+import Deck from './components/Deck'
 import reducer from './reducers'
 import { white, purple } from './utils/colors'
 
@@ -18,6 +19,15 @@ const MainNavigator = StackNavigator({
       }
     }
   },
+  Deck: {
+    screen: Deck, 
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  }
 })
 
 export default class App extends React.Component {
@@ -25,7 +35,7 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducer)}>
         <View style={styles.container}>
-          <DeckList />
+         <MainNavigator />
         </View>
       </Provider>
     );

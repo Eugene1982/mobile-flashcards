@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native'
 import { DECKS_STORAGE_KEY } from './constants'
 
 function setDummyData() {
-    let dummyData = [{
+    let dummyData = {
         React: {
             title: 'React',
             questions: [
@@ -25,7 +25,7 @@ function setDummyData() {
                 }
             ]
         }
-    }]
+    }
 
     AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(dummyData))
 

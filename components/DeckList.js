@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { getCountInfo } from '../utils/helpers'
 import { getDecks } from '../utils/api'
 import { recieveDecks } from '../actions'
@@ -28,17 +28,23 @@ class DeckList extends Component {
         }
         return (
             <View style={styles.container}>
-                <Text>Header</Text>
+                <Text>DECKS</Text>
                 {Object.keys(decks).map(deck => {
                     const { title, questionsCount } = getCountInfo(decks[deck])
                     return (
                         <View style={styles.deck} key={deck}>
-                            <Text style={{ fontSize: 20 }}>
-                                {title}
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate(
+                                    'Deck',
+                                    { deck: key }
+                                )}>
+                                <Text style={{ fontSize: 20 }}>
+                                    {title}
+                                </Text>
+                                <Text style={{ fontSize: 16, color: gray }}>
+                                    {questionsCount} cards
                             </Text>
-                            <Text style={{ fontSize: 16, color: gray }}>
-                                {questionsCount}
-                            </Text>
+                            </TouchableOpacity>
                         </View>
                     )
 
