@@ -6,14 +6,14 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import DeckList from './components/DeckList'
 import Deck from './components/Deck'
 import reducer from './reducers'
-import { white, purple } from './utils/colors'
+import { white, purple, grey } from './utils/colors'
 
 
 const MainNavigator = StackNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
-      headerTintColor: white,
+      headerTintColor: grey,
       headerStyle: {
         backgroundColor: purple,
       }
@@ -22,7 +22,7 @@ const MainNavigator = StackNavigator({
   Deck: {
     screen: Deck, 
     navigationOptions: {
-      headerTintColor: white,
+      headerTintColor: grey,
       headerStyle: {
         backgroundColor: purple,
       }
@@ -34,19 +34,10 @@ export default class App extends React.Component {
   render() {
     return (
       <Provider store={createStore(reducer)}>
-        <View style={styles.container}>
-         <MainNavigator />
+        <View style={{flex: 1}}>
+        <MainNavigator />
         </View>
       </Provider>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

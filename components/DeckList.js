@@ -14,10 +14,15 @@ class DeckList extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props
-        console.log("mount")
-        getDecks()
+        const decks = getDecks()
+        console.log(decks)
+      
+        dispatch(recieveDecks(decks))
+        this.setState(() => ({ ready: true }))
+
+       /* getDecks()
             .then((decks) => dispatch(recieveDecks(decks)))
-            .then(() => this.setState(() => ({ ready: true })))
+            .then(() => this.setState(() => ({ ready: true })))*/
     }
 
     render() {
@@ -36,7 +41,7 @@ class DeckList extends Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate(
                                     'Deck',
-                                    { deck: key }
+                                    { deck: deck }
                                 )}>
                                 <Text style={{ fontSize: 20 }}>
                                     {title}
