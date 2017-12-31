@@ -1,1 +1,1 @@
-export const DECKS_STORAGE_KEY = 'UdaciCards:decks'
+export const DECKS_STORAGE_KEY = 'Mobile-cards:decks'

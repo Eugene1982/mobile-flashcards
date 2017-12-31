@@ -3,8 +3,8 @@ import { DECKS_STORAGE_KEY } from './constants'
 import { formatResults } from './_decks'
 
 export function getDecks() {
-  // return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults)
-  let dummyData = {
+   return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(formatResults)
+  /*let dummyData = {
     React: {
         title: 'React',
         questions: [
@@ -28,7 +28,7 @@ export function getDecks() {
         ]
     }
 }
-return dummyData
+return dummyData*/
 }
 
 export function getDeck(deckId) {
