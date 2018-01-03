@@ -12,4 +12,15 @@ function decks(state = {}, action) {
     }
 }
 
+function cards(state = [], action){
+    switch (action.type) {
+        case ADD_CARD:
+            return {
+               
+            }
+        default:
+            return state
+    }  
+}
+
 export default decks

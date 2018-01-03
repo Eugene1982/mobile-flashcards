@@ -1,45 +1,35 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
-import { white, purple } from '../utils/colors'
+import { white, purple, gray } from '../utils/colors'
 
-function AddBtn({ onPress }) {
-    return (
-        <TouchableOpacity
-            style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
-            onPress={onPress}>
-            <Text style={styles.submitBtnText}>Add Card</Text>
-        </TouchableOpacity>
-    )
-}
 
 class Deck extends Component {
 
-    submit = () => {
-        // const key = timeToString()
-        // const entry = this.state
-
-        /* this.props.dispatch(addEntry({
-           [key]: entry
-         }))
-     
-         this.setState(() => ({ run: 0, bike: 0, swim: 0, sleep: 0, eat: 0 }))
-     
-         this.toHome()
-     
-         submitEntry({ key, entry })
-     
-         clearLocalNotification()
-           .then(setLocalNotification)*/
+    openAddCard = () => {
+        this.props.navigation.navigate(
+            'AddCard',
+            { deck: deck}
+        )
     }
-    
+
     render() {
-        const { deck } = this.props
+        const { deck, count } = this.props
         console.log(this.props)
         return (
             <View style={styles.container}>
                 <Text>{deck}</Text>
-                <AddBtn onPress={this.submit} />
+                <Text style={{ fontSize: 16, color: gray }}>{count}</Text>
+                <TouchableOpacity
+                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
+                    onPress={this.openAddCard}>
+                    <Text style={styles.submitBtnText}>Add Card</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
+                    onPress={this.startQuiz}>
+                    <Text style={styles.submitBtnText}>Start Quiz</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -73,15 +63,21 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    submitBtnText: {
+        color: white,
+        fontSize: 22,
+        textAlign: 'center',
+    },
 })
 
 
 function mapStateToProps(state, { navigation }) {
-    const { deck } = navigation.state.params
+    const { deck, count } = navigation.state.params
 
     return {
-        deck
+        deck,
+        count
     }
 }
 

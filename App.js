@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import DeckList from './components/DeckList'
 import Deck from './components/Deck'
+import AddCard from './components/AddCard'
 import reducer from './reducers'
 import { white, purple, grey } from './utils/colors'
 
@@ -27,7 +28,16 @@ const MainNavigator = StackNavigator({
         backgroundColor: purple,
       }
     }
-  }
+  },
+  AddCard: {
+    screen: AddCard, 
+    navigationOptions: {
+      headerTintColor: grey,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  },
 })
 
 export default class App extends React.Component {

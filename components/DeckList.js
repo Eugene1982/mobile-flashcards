@@ -41,7 +41,7 @@ class DeckList extends Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate(
                                     'Deck',
-                                    { deck: deck }
+                                    { deck: deck, count: questionsCount }
                                 )}>
                                 <Text style={{ fontSize: 20 }}>
                                     {title}
