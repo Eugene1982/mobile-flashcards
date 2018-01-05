@@ -7,10 +7,10 @@ import { white, purple, gray } from '../utils/colors'
 class Deck extends Component {
 
     openAddCard = () => {
-        const { deck } = this.props
+        const { deck, count } = this.props
         this.props.navigation.navigate(
             'AddCard',
-            { deckName: deck.title }
+            { deckName: deck.title, count }
         )
     }
 

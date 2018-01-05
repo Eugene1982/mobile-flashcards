@@ -20,8 +20,6 @@ function SubmitBtn({ onPress }) {
 
 class AddCard extends Component {
 
-
-
     state = {
         question: QUESTION_PLACEHOLDER,
         answer: ANSWER_PLACEHOLDER
@@ -32,14 +30,14 @@ class AddCard extends Component {
     }
 
     submit = () => {
-        const deck = this.props.deck
+        const {deck, count} = this.props
         const { question, answer } = this.state
 
         this.props.dispatch(addNewCard(deck, { question, answer }))
 
         this.resetState()
 
-        this.toHome()
+        this.toDeck(deck.title, count + 1)
 
         addCardToDeck({ deck, card: { question, answer } })
 
@@ -47,8 +45,11 @@ class AddCard extends Component {
             .then(setLocalNotification)*/
     }
 
-    toHome = () => {
-        this.props.navigation.dispatch(NavigationActions.back({ key: 'Deck' }))
+    toDeck = (deckName, questionsCount) => {
+       // this.props.navigation.dispatch(NavigationActions.back({ key: 'Deck' }))
+        this.props.navigation.navigate(
+            'DeckList'
+        )
     }
 
     handleQuestionTextChange = (text) => {
@@ -75,7 +76,7 @@ class AddCard extends Component {
         return (
             <View style={styles.container}>
                 <Text>Add new card</Text>
-                <TextInput autoFocus={true} value={question} onChangeText={this.handleQuestionTextChange}></TextInput>
+                <TextInput value={question} onChangeText={this.handleQuestionTextChange}></TextInput>
                 <TextInput value={answer} onChangeText={this.handleAnswerTextChange}></TextInput>
                 <SubmitBtn onPress={this.submit} />
             </View>)
@@ -116,10 +117,11 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(decks, { navigation }) {
-    const { deckName } = navigation.state.params
+    const { deckName, count } = navigation.state.params
 
     return {
-        deck: decks[deckName]
+        deck: decks[deckName],
+        count
     }
 }
 
