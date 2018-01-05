@@ -34,14 +34,14 @@ class DeckList extends Component {
         return (
             <View style={styles.container}>
                 <Text>DECKS</Text>
-                {Object.keys(decks).map(deck => {
-                    const { title, questionsCount } = getCountInfo(decks[deck])
+                {Object.keys(decks).map(deckName => {
+                    const { title, questionsCount } = getCountInfo(decks[deckName])
                     return (
-                        <View style={styles.deck} key={deck}>
+                        <View style={styles.deck} key={deckName}>
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate(
                                     'Deck',
-                                    { deck: deck, count: questionsCount }
+                                    { deckName: deckName, count: questionsCount }
                                 )}>
                                 <Text style={{ fontSize: 20 }}>
                                     {title}

@@ -7,9 +7,10 @@ import { white, purple, gray } from '../utils/colors'
 class Deck extends Component {
 
     openAddCard = () => {
+        const { deck } = this.props
         this.props.navigation.navigate(
             'AddCard',
-            { deck: deck}
+            { deckName: deck.title }
         )
     }
 
@@ -18,7 +19,7 @@ class Deck extends Component {
         console.log(this.props)
         return (
             <View style={styles.container}>
-                <Text>{deck}</Text>
+                <Text>{deck.title}</Text>
                 <Text style={{ fontSize: 16, color: gray }}>{count}</Text>
                 <TouchableOpacity
                     style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
@@ -72,11 +73,11 @@ const styles = StyleSheet.create({
 })
 
 
-function mapStateToProps(state, { navigation }) {
-    const { deck, count } = navigation.state.params
+function mapStateToProps(decks, { navigation }) {
+    const { deckName, count } = navigation.state.params
 
     return {
-        deck,
+        deck: decks[deckName],
         count
     }
 }

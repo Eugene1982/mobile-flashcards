@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import { View, TouchableOpacity, Text, StyleSheet, Platform, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import { purple, white } from '../utils/colors'
+import { addNewCard } from '../actions'
+import { NavigationActions } from 'react-navigation'
+import { addCardToDeck } from '../utils/api'
+import { QUESTION_PLACEHOLDER, ANSWER_PLACEHOLDER } from '../utils/constants'
+
 
 function SubmitBtn({ onPress }) {
     return (
@@ -15,47 +20,63 @@ function SubmitBtn({ onPress }) {
 
 class AddCard extends Component {
 
+
+
     state = {
-        questionText: 'Write your question',
-        answerText: 'Write your answer'
+        question: QUESTION_PLACEHOLDER,
+        answer: ANSWER_PLACEHOLDER
     }
 
     resetState = () => {
-        this.setState(() => ({ questionText: 'Write your question', answerText: 'Write your answer' }))
+        this.setState(() => ({ question: QUESTION_PLACEHOLDER, answer: ANSWER_PLACEHOLDER }))
     }
 
     submit = () => {
-        const deckName = this.props.deck
-    
-        this.props.dispatch(addEntry({
-          [key]: entry
-        }))
-    
-        this.setState(() => ({ run: 0, bike: 0, swim: 0, sleep: 0, eat: 0 }))
-    
+        const deck = this.props.deck
+        const { question, answer } = this.state
+
+        this.props.dispatch(addNewCard(deck, { question, answer }))
+
+        this.resetState()
+
         this.toHome()
-    
-        submitEntry({ key, entry })
-    
-        clearLocalNotification()
-          .then(setLocalNotification)
+
+        addCardToDeck({ deck, card: { question, answer } })
+
+        /*clearLocalNotification()
+            .then(setLocalNotification)*/
+    }
+
+    toHome = () => {
+        this.props.navigation.dispatch(NavigationActions.back({ key: 'Deck' }))
     }
 
     handleQuestionTextChange = (text) => {
-        this.setState(() => { questionText: text })
+        this.setState((state) => { 
+            return {
+                ...state, 
+                question: text 
+            }
+        })
     }
 
+
     handleAnswerTextChange = (text) => {
-        this.setState(() => { answerText: text })
+        this.setState((state) => { 
+            return {
+                ...state, 
+                answer: text 
+            }
+        })
     }
 
     render() {
-        const { questionText, answerText } = this.state
+        const { question, answer } = this.state
         return (
             <View style={styles.container}>
                 <Text>Add new card</Text>
-                <TextInput autoFocus={true} value={questionText} onChangeText={this.handleQuestionTextChange}></TextInput>
-                <TextInput value={answerText} onChangeText={this.handleAnswerTextChange}></TextInput>
+                <TextInput autoFocus={true} value={question} onChangeText={this.handleQuestionTextChange}></TextInput>
+                <TextInput value={answer} onChangeText={this.handleAnswerTextChange}></TextInput>
                 <SubmitBtn onPress={this.submit} />
             </View>)
     }
@@ -94,11 +115,11 @@ const styles = StyleSheet.create({
     },
 })
 
-function mapStateToProps(state, { navigation }) {
-    const { deck } = navigation.state.params
+function mapStateToProps(decks, { navigation }) {
+    const { deckName } = navigation.state.params
 
     return {
-        deck
+        deck: decks[deckName]
     }
 }
 

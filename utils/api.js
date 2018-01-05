@@ -42,8 +42,29 @@ export function saveDeckTitle({ title }) {
        }))*/
 }
 
-export function addCardToDeck({ title, card }) {
+export function addCardToDeck({ deck, card }) {
     /*  return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
           [key]: entry
       }))*/
+
+      /*
+      AsyncStorage.getItem( 'user' )
+    .then( data => {
+
+      // the string value read from AsyncStorage has been assigned to data
+      console.log( data );
+
+      // transform it back to an object
+      data = JSON.parse( data );
+      console.log( data );
+
+      // Decrement
+      data.question_count--;
+      console.log( data );
+
+      //save the value to AsyncStorage again
+      AsyncStorage.setItem( 'user', JSON.stringify( data ) );
+
+    }).done();
+      */
 }
