@@ -10,6 +10,12 @@ function decks(state = {}, action) {
         case ADD_CARD:
             const { title } = action.deck
             state[title].questions.push(action.card)
+        case ADD_DECK:
+            let deck = { title: action.deckTitle, questions: [] }
+            return {
+                ...state,
+                ...deck,
+            }
         default:
             return state
     }

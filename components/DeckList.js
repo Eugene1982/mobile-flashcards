@@ -4,7 +4,7 @@ import { getCountInfo } from '../utils/helpers'
 import { getDecks } from '../utils/api'
 import { recieveDecks } from '../actions'
 import { connect } from 'react-redux'
-import { gray, white } from '../utils/colors'
+import { white, purple, gray } from '../utils/colors'
 import { AppLoading } from 'expo'
 
 class DeckList extends Component {
@@ -14,15 +14,19 @@ class DeckList extends Component {
 
     componentDidMount() {
         const { dispatch } = this.props
-       /* const decks = getDecks()
-        console.log(decks)
-      
-        dispatch(recieveDecks(decks))
-        this.setState(() => ({ ready: true }))*/
+        /* const decks = getDecks()
+         console.log(decks)
+       
+         dispatch(recieveDecks(decks))
+         this.setState(() => ({ ready: true }))*/
 
         getDecks()
             .then((decks) => dispatch(recieveDecks(decks)))
             .then(() => this.setState(() => ({ ready: true })))
+    }
+
+    openAddDeck = () => {
+        this.props.navigation.navigate('AddDeck')
     }
 
     render() {
@@ -50,6 +54,11 @@ class DeckList extends Component {
                                     {questionsCount} cards
                             </Text>
                             </TouchableOpacity>
+                            <TouchableOpacity
+                                style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
+                                onPress={this.openAddDeck}>
+                                <Text style={styles.submitBtnText}>Add Deck</Text>
+                            </TouchableOpacity>
                         </View>
                     )
 
@@ -68,6 +77,31 @@ const styles = StyleSheet.create({
     deck: {
         /*flexDirection: 'row',*/
         marginTop: 1
+    },
+    
+    iosSubmitBtn: {
+        backgroundColor: purple,
+        padding: 10,
+        borderRadius: 7,
+        height: 45,
+        marginLeft: 40,
+        marginRight: 40,
+    },
+    AndroidSubmitBtn: {
+        backgroundColor: purple,
+        padding: 10,
+        paddingLeft: 30,
+        paddingRight: 30,
+        height: 45,
+        borderRadius: 2,
+        alignSelf: 'flex-end',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    submitBtnText: {
+        color: white,
+        fontSize: 22,
+        textAlign: 'center',
     },
 })
 
