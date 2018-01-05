@@ -19,6 +19,11 @@ function SubmitBtn({ onPress }) {
 }
 
 class AddCard extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+          title: 'Add Card'
+        }
+      }
 
     state = {
         question: QUESTION_PLACEHOLDER,
@@ -75,7 +80,6 @@ class AddCard extends Component {
         const { question, answer } = this.state
         return (
             <View style={styles.container}>
-                <Text>Add new card</Text>
                 <TextInput value={question} onChangeText={this.handleQuestionTextChange}></TextInput>
                 <TextInput value={answer} onChangeText={this.handleAnswerTextChange}></TextInput>
                 <SubmitBtn onPress={this.submit} />

@@ -5,7 +5,13 @@ import { white, purple, gray } from '../utils/colors'
 
 
 class Deck extends Component {
-
+    static navigationOptions = ({ navigation }) => {
+        const { deckName } = navigation.state.params
+    
+        return {
+          title: `${deckName}`
+        }
+      }
     openAddCard = () => {
         const { deck, count } = this.props
         this.props.navigation.navigate(
