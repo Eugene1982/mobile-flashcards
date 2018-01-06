@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity, Platform } from 'react-native'
 import { getCountInfo } from '../utils/helpers'
 import { getDecks } from '../utils/api'
 import { recieveDecks } from '../actions'
@@ -54,15 +54,14 @@ class DeckList extends Component {
                                     {questionsCount} cards
                             </Text>
                             </TouchableOpacity>
-                            <TouchableOpacity
-                                style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
-                                onPress={this.openAddDeck}>
-                                <Text style={styles.submitBtnText}>Add Deck</Text>
-                            </TouchableOpacity>
                         </View>
                     )
-
                 })}
+                <TouchableOpacity
+                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
+                    onPress={this.openAddDeck}>
+                    <Text style={styles.submitBtnText}>Add Deck</Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
         /*flexDirection: 'row',*/
         marginTop: 1
     },
-    
+
     iosSubmitBtn: {
         backgroundColor: purple,
         padding: 10,

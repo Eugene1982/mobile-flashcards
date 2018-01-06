@@ -118,4 +118,4 @@ function mapStateToProps(decks) {
 
 export default connect(
     mapStateToProps
-)(AddCard)
+)(AddDeck)
