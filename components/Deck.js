@@ -13,10 +13,10 @@ class Deck extends Component {
         }
       }
     openAddCard = () => {
-        const { deck, count } = this.props
+        const { deck} = this.props
         this.props.navigation.navigate(
             'AddCard',
-            { deckName: deck.title, count }
+            { deckName: deck.title }
         )
     }
 

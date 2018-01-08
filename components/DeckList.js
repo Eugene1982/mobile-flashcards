@@ -12,14 +12,18 @@ class DeckList extends Component {
         ready: false,
     }
 
+    /*constructor(props, context) {
+        super(props, context);
+        const { dispatch } = this.props
+       
+        getDecks()
+            .then((decks) => dispatch(recieveDecks(decks)))
+            .then(() => this.setState(() => ({ ready: true })))
+      }
+*/
     componentDidMount() {
         const { dispatch } = this.props
-        /* const decks = getDecks()
-         console.log(decks)
        
-         dispatch(recieveDecks(decks))
-         this.setState(() => ({ ready: true }))*/
-
         getDecks()
             .then((decks) => dispatch(recieveDecks(decks)))
             .then(() => this.setState(() => ({ ready: true })))

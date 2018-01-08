@@ -35,23 +35,21 @@ class AddCard extends Component {
     }
 
     submit = () => {
-        const {deck, count} = this.props
+        const {deck} = this.props
         const { question, answer } = this.state
 
-        this.props.dispatch(addNewCard(deck, { question, answer }))
-
-        this.resetState()
-
-        this.toDeck(deck.title, count + 1)
-
-        addCardToDeck({ deck, card: { question, answer } })
-
+        addCardToDeck({ deck, card: { question, answer } }, this.callbackFunc)
         /*clearLocalNotification()
             .then(setLocalNotification)*/
     }
 
-    toDeck = (deckName, questionsCount) => {
-       // this.props.navigation.dispatch(NavigationActions.back({ key: 'Deck' }))
+    callbackFunc = (deck, card) => {
+        this.props.dispatch(addNewCard(deck, card))
+        this.resetState()
+        this.toDeck()
+    }
+
+    toDeck = () => {
         this.props.navigation.navigate(
             'DeckList'
         )
@@ -121,11 +119,10 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(decks, { navigation }) {
-    const { deckName, count } = navigation.state.params
+    const { deckName } = navigation.state.params
 
     return {
-        deck: decks[deckName],
-        count
+        deck: decks[deckName]
     }
 }
 

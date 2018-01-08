@@ -34,19 +34,16 @@ class AddDeck extends Component {
     }
 
     submit = () => {
-        const {decks} = this.props
         const { deckTitle } = this.state
-
-        this.props.dispatch(addNewDeck(deckTitle))
-
-        this.resetState()
-
-        this.toDeckList()
-
-        saveDeckTitle(deckTitle)
-
+        saveDeckTitle(deckTitle, this.callbackFunc)
         /*clearLocalNotification()
             .then(setLocalNotification)*/
+    }
+
+    callbackFunc = (deckTitle) => {
+        this.props.dispatch(addNewDeck(deckTitle))
+        this.resetState()
+        this.toDeckList()
     }
 
     toDeckList = () => {
