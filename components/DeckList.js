@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native'
 import { getCountInfo } from '../utils/helpers'
 import { getDecks } from '../utils/api'
 import { recieveDecks } from '../actions'
@@ -44,34 +44,36 @@ class DeckList extends Component {
                         borderBottomWidth: 2,
                     }}
                 />
-                {Object.keys(decks).map(deckName => {
-                    const { title, questionsCount } = getCountInfo(decks[deckName])
-                    return (
-                        <View key={deckName}>
-                            <View style={styles.deck}>
-                                <TouchableOpacity
-                                    onPress={() => this.props.navigation.navigate(
-                                        'Deck',
-                                        { deckName: deckName, count: questionsCount }
-                                    )}>
-                                    <Text style={{ fontSize: 20 }}>
-                                        {title}
-                                    </Text>
-                                    <Text style={{ fontSize: 16, color: gray }}>
-                                        {questionsCount} cards
+                <ScrollView>
+                    {Object.keys(decks).map(deckName => {
+                        const { title, questionsCount } = getCountInfo(decks[deckName])
+                        return (
+                            <View key={deckName}>
+                                <View style={styles.deck}>
+                                    <TouchableOpacity
+                                        onPress={() => this.props.navigation.navigate(
+                                            'Deck',
+                                            { deckName: deckName, count: questionsCount }
+                                        )}>
+                                        <Text style={{ fontSize: 20 }}>
+                                            {title}
+                                        </Text>
+                                        <Text style={{ fontSize: 16, color: gray }}>
+                                            {questionsCount} cards
                                      </Text>
-                                </TouchableOpacity>
+                                    </TouchableOpacity>
+                                </View>
+                                <View
+                                    style={{
+                                        borderBottomColor: 'black',
+                                        borderBottomWidth: 1,
+                                    }}
+                                />
                             </View>
-                            <View
-                                style={{
-                                    borderBottomColor: 'black',
-                                    borderBottomWidth: 1,
-                                }}
-                            />
-                        </View>
-                    )
+                        )
 
-                })}
+                    })}
+                </ScrollView>
 
             </View>
         )
