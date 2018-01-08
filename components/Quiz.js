@@ -14,7 +14,8 @@ class Quiz extends Component {
     state = {
         correctAnswers: 0,
         currentIndex: 0,
-        percentage: undefined,
+        percentage: 0,
+        showPercentage: false,
         questionMode: true
     }
 
@@ -33,21 +34,22 @@ class Quiz extends Component {
         const { questions } = this.props
 
         if (answer === option) {
-            this.setState({ correctAnswers: correctAnswers + 1 })
+            this.setState({ correctAnswers: correctAnswers + 1 }, () => {
+                let percentage = ((questions.length - (questions.length - this.state.correctAnswers)) / questions.length) * 100.0
+                this.setState({ percentage })
+            })
         }
 
         if (currentIndex === questions.length - 1) {
-            let percentage = ((questions.length - (questions.length - correctAnswers)) / questions.length) * 100.0
-            this.setState({ percentage })
+           this.setState({ showPercentage: true })
         }
         else {
             this.nextQuestion(currentIndex)
         }
     }
 
-
     render() {
-        const { currentIndex, questionMode, percentage } = this.state
+        const { currentIndex, questionMode, percentage, showPercentage } = this.state
         const question = this.props.questions[currentIndex]
         return (
             <View style={styles.container}>
@@ -69,7 +71,7 @@ class Quiz extends Component {
                     onPress={() => this.check(question.answer, NO_ANSWER)}>
                     <Text style={styles.submitBtnText}>Incorrect</Text>
                 </TouchableOpacity>
-                {percentage !== undefined && <Text style={{ fontSize: 20 }}>
+                {showPercentage && <Text style={{ fontSize: 20 }}>
                     {"Correct answers: " + percentage + "%"}
                 </Text>}
             </View>

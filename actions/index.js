@@ -15,8 +15,6 @@ export function addNewCard(deck, card){
         deck,
         card
     }
-
-
 }
 
 export function addNewDeck(deckTitle){

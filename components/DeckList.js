@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity, Platform } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { getCountInfo } from '../utils/helpers'
 import { getDecks } from '../utils/api'
 import { recieveDecks } from '../actions'
 import { connect } from 'react-redux'
-import { white, purple, gray, yellow, black } from '../utils/colors'
+import { white, gray, yellow, black } from '../utils/colors'
 import { AppLoading } from 'expo'
 
 class DeckList extends Component {
@@ -33,7 +33,7 @@ class DeckList extends Component {
         return (
             <View style={styles.container}>
                 <TouchableOpacity
-                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
+                    style={styles.submitBtn}
                     onPress={this.openAddDeck}>
                     <Text style={styles.submitBtnText}>Add Deck</Text>
                 </TouchableOpacity>
@@ -85,21 +85,11 @@ const styles = StyleSheet.create({
         backgroundColor: white
     },
     deck: {
-        /*flexDirection: 'row',*/
         alignItems: 'center',
         marginTop: 1,
         padding: 10
     },
-
-    iosSubmitBtn: {
-        backgroundColor: purple,
-        padding: 10,
-        borderRadius: 7,
-        height: 45,
-        marginLeft: 40,
-        marginRight: 40,
-    },
-    AndroidSubmitBtn: {
+    submitBtn: {
         backgroundColor: white,
         borderColor: black,
         borderWidth: 2,

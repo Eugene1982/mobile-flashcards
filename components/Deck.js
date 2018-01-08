@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { white, purple, gray, black } from '../utils/colors'
+import { white, gray, black, purple } from '../utils/colors'
 
 class Deck extends Component {
     static navigationOptions = ({ navigation }) => {
