@@ -3,19 +3,27 @@ import { View, StyleSheet, Text, TouchableOpacity, Platform } from 'react-native
 import { connect } from 'react-redux'
 import { white, purple, gray } from '../utils/colors'
 
-
 class Deck extends Component {
     static navigationOptions = ({ navigation }) => {
         const { deckName } = navigation.state.params
-    
+
         return {
-          title: `${deckName}`
+            title: `${deckName}`
         }
-      }
+    }
+
     openAddCard = () => {
-        const { deck} = this.props
+        const { deck } = this.props
         this.props.navigation.navigate(
             'AddCard',
+            { deckName: deck.title }
+        )
+    }
+
+    startQuiz = () => {
+        const { deck } = this.props
+        this.props.navigation.navigate(
+            'Quiz',
             { deckName: deck.title }
         )
     }
@@ -32,11 +40,11 @@ class Deck extends Component {
                     onPress={this.openAddCard}>
                     <Text style={styles.submitBtnText}>Add Card</Text>
                 </TouchableOpacity>
-                <TouchableOpacity
+                {deck.questions.length > 0 && <TouchableOpacity
                     style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
                     onPress={this.startQuiz}>
                     <Text style={styles.submitBtnText}>Start Quiz</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
             </View>
         )
     }
@@ -88,13 +96,6 @@ function mapStateToProps(decks, { navigation }) {
     }
 }
 
-function mapDispatchToProps(dispatch, { navigation }) {
-    return {
-
-    }
-}
-
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
+    mapStateToProps
 )(Deck)

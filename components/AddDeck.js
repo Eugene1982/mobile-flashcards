@@ -52,7 +52,6 @@ class AddDeck extends Component {
         )
     }
 
-
     handleTextChange = (text) => {
         this.setState((state) => { 
             return {
