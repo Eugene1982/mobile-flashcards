@@ -11,7 +11,14 @@ function decks(state = {}, action) {
             const { title } = action.deck
             state[title].questions.push(action.card)
         case ADD_DECK:
-            let deck = { title: action.deckTitle, questions: [] }
+            let deck = {
+                [action.deckTitle] : 
+                { 
+                    title: action.deckTitle, 
+                    questions: [] 
+                }
+            }
+
             return {
                 ...state,
                 ...deck,
