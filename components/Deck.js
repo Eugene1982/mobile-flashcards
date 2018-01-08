@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity, Platform } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { white, purple, gray } from '../utils/colors'
+import { white, purple, gray, black } from '../utils/colors'
 
 class Deck extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -33,18 +33,23 @@ class Deck extends Component {
         console.log(this.props)
         return (
             <View style={styles.container}>
-                <Text>{deck.title}</Text>
-                <Text style={{ fontSize: 16, color: gray }}>{count}</Text>
-                <TouchableOpacity
-                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
-                    onPress={this.openAddCard}>
-                    <Text style={styles.submitBtnText}>Add Card</Text>
-                </TouchableOpacity>
-                {deck.questions.length > 0 && <TouchableOpacity
-                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
-                    onPress={this.startQuiz}>
-                    <Text style={styles.submitBtnText}>Start Quiz</Text>
-                </TouchableOpacity>}
+                <View style={styles.deck}>
+                    <Text style={{ fontSize: 20, padding: 10 }}>{deck.title}</Text>
+                    <Text style={{ fontSize: 16, color: gray, padding: 10 }}>{count} card(s)</Text>
+                    <View style={styles.buttons}>
+                        <TouchableOpacity
+                            style={styles.submitBtn} onPress={this.openAddCard}>
+                            <Text style={styles.submitBtnText}>Add Card</Text>
+                        </TouchableOpacity>
+                        </View>
+                        <View style={styles.buttons}>
+                        {deck.questions.length > 0 && <TouchableOpacity
+                            style={styles.quizBtn} onPress={this.startQuiz}>
+                            <Text style={styles.quizBtnText}>Start Quiz</Text>
+                        </TouchableOpacity>}
+                        </View>
+                   
+                </View>
             </View>
         )
     }
@@ -54,33 +59,45 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: white
+        backgroundColor: white,
+        justifyContent: 'center'
     },
     deck: {
-        /*flexDirection: 'row',*/
-        marginTop: 1
+        marginTop: 1,
+        alignItems: 'center'
     },
-    iosSubmitBtn: {
-        backgroundColor: purple,
-        padding: 10,
-        borderRadius: 7,
-        height: 45,
-        marginLeft: 40,
-        marginRight: 40,
+    buttons: {
+      padding: 10
     },
-    AndroidSubmitBtn: {
-        backgroundColor: purple,
+    submitBtn: {
+        backgroundColor: white,
+        borderColor: black,
+        borderWidth: 2,
         padding: 10,
         paddingLeft: 30,
         paddingRight: 30,
         height: 45,
-        borderRadius: 2,
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
+        borderRadius: 10,
+        alignItems: 'center',
+    },
+    quizBtn: {
+        backgroundColor: black,
+        borderColor: black,
+        borderWidth: 2,
+        padding: 10,
+        paddingLeft: 30,
+        paddingRight: 30,
+        height: 45,
+        borderRadius: 10,
         alignItems: 'center',
     },
     submitBtnText: {
-        color: white,
+        color: black,
+        fontSize: 22,
+        textAlign: 'center',
+    },
+    quizBtnText: {
+        color: purple,
         fontSize: 22,
         textAlign: 'center',
     },

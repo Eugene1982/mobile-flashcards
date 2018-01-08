@@ -9,7 +9,7 @@ import AddCard from './components/AddCard'
 import AddDeck from './components/AddDeck'
 import Quiz from './components/Quiz'
 import reducer from './reducers'
-import { white, purple, grey } from './utils/colors'
+import { white, purple, grey, black } from './utils/colors'
 
 
 const MainNavigator = StackNavigator({
@@ -18,7 +18,7 @@ const MainNavigator = StackNavigator({
     navigationOptions: {
       headerTintColor: grey,
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: black,
       }
     }
   },
@@ -27,34 +27,34 @@ const MainNavigator = StackNavigator({
     navigationOptions: {
       headerTintColor: grey,
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: black,
       }
     }
   },
   AddCard: {
     screen: AddCard, 
     navigationOptions: {
-      headerTintColor: grey,
+      headerTintColor: black,
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: grey,
       }
     }
   },
   AddDeck: {
     screen: AddDeck, 
     navigationOptions: {
-      headerTintColor: grey,
+      headerTintColor: black,
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: grey,
       }
     }
   },
   Quiz: {
     screen: Quiz, 
     navigationOptions: {
-      headerTintColor: grey,
+      headerTintColor: black,
       headerStyle: {
-        backgroundColor: purple,
+        backgroundColor: grey,
       }
     }
   },

@@ -18,29 +18,31 @@ class Quiz extends Component {
         questionMode: true
     }
 
-    nextQuestion = () => {
-        const { currentIndex } = this.state
+    nextQuestion = (currentIndex) => {
         const { questions } = this.props
-        if (currentIndex < questions.length - 1) {
             this.setState(() => {
                 return {
                     currentIndex: currentIndex + 1,
                     questionMode: true
                 }
             })
-        } else {
-            const { correctAnswers } = this.state
-            let percentage = ((questions.length - (questions.length - correctAnswers)) / questions.length) * 100.0
-            this.setState({percentage})
-        }
     }
 
     check = (answer, option) => {
-        const { correctAnswers } = this.state
+        const { correctAnswers, currentIndex } = this.state
+        const { questions } = this.props
+
         if (answer === option) {
             this.setState({ correctAnswers: correctAnswers + 1 })
         }
-        this.nextQuestion()
+
+        if (currentIndex === questions.length - 1) {
+            let percentage = ((questions.length - (questions.length - correctAnswers)) / questions.length) * 100.0
+            this.setState({ percentage })
+        }
+        else {
+            this.nextQuestion(currentIndex)
+        }
     }
 
 

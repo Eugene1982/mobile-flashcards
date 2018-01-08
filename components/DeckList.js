@@ -4,7 +4,7 @@ import { getCountInfo } from '../utils/helpers'
 import { getDecks } from '../utils/api'
 import { recieveDecks } from '../actions'
 import { connect } from 'react-redux'
-import { white, purple, gray } from '../utils/colors'
+import { white, purple, gray, yellow } from '../utils/colors'
 import { AppLoading } from 'expo'
 
 class DeckList extends Component {
@@ -32,31 +32,47 @@ class DeckList extends Component {
         }
         return (
             <View style={styles.container}>
-                <Text>DECKS</Text>
-                {Object.keys(decks).map(deckName => {
-                    const { title, questionsCount } = getCountInfo(decks[deckName])
-                    return (
-                        <View style={styles.deck} key={deckName}>
-                            <TouchableOpacity
-                                onPress={() => this.props.navigation.navigate(
-                                    'Deck',
-                                    { deckName: deckName, count: questionsCount }
-                                )}>
-                                <Text style={{ fontSize: 20 }}>
-                                    {title}
-                                </Text>
-                                <Text style={{ fontSize: 16, color: gray }}>
-                                    {questionsCount} cards
-                            </Text>
-                            </TouchableOpacity>
-                        </View>
-                    )
-                })}
                 <TouchableOpacity
                     style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
                     onPress={this.openAddDeck}>
                     <Text style={styles.submitBtnText}>Add Deck</Text>
                 </TouchableOpacity>
+                <Text style={{ padding: 15 }}>DECKS</Text>
+                <View
+                    style={{
+                        borderBottomColor: 'yellow',
+                        borderBottomWidth: 2,
+                    }}
+                />
+                {Object.keys(decks).map(deckName => {
+                    const { title, questionsCount } = getCountInfo(decks[deckName])
+                    return (
+                        <View key={deckName}>
+                            <View style={styles.deck}>
+                                <TouchableOpacity
+                                    onPress={() => this.props.navigation.navigate(
+                                        'Deck',
+                                        { deckName: deckName, count: questionsCount }
+                                    )}>
+                                    <Text style={{ fontSize: 20 }}>
+                                        {title}
+                                    </Text>
+                                    <Text style={{ fontSize: 16, color: gray }}>
+                                        {questionsCount} cards
+                                     </Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View
+                                style={{
+                                    borderBottomColor: 'black',
+                                    borderBottomWidth: 1,
+                                }}
+                            />
+                        </View>
+                    )
+
+                })}
+
             </View>
         )
     }
@@ -70,7 +86,9 @@ const styles = StyleSheet.create({
     },
     deck: {
         /*flexDirection: 'row',*/
-        marginTop: 1
+        alignItems: 'center',
+        marginTop: 1,
+        padding: 10
     },
 
     iosSubmitBtn: {
