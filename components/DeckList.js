@@ -4,7 +4,7 @@ import { getCountInfo } from '../utils/helpers'
 import { getDecks } from '../utils/api'
 import { recieveDecks } from '../actions'
 import { connect } from 'react-redux'
-import { white, purple, gray, yellow } from '../utils/colors'
+import { white, purple, gray, yellow, black } from '../utils/colors'
 import { AppLoading } from 'expo'
 
 class DeckList extends Component {
@@ -100,18 +100,20 @@ const styles = StyleSheet.create({
         marginRight: 40,
     },
     AndroidSubmitBtn: {
-        backgroundColor: purple,
+        backgroundColor: white,
+        borderColor: black,
+        borderWidth: 2,
         padding: 10,
         paddingLeft: 30,
         paddingRight: 30,
         height: 45,
-        borderRadius: 2,
+        borderRadius: 10,
         alignSelf: 'flex-end',
         justifyContent: 'center',
         alignItems: 'center',
     },
     submitBtnText: {
-        color: white,
+        color: black,
         fontSize: 22,
         textAlign: 'center',
     },

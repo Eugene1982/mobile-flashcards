@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity, Platform } from 'react-native'
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { white, purple, gray, red } from '../utils/colors'
+import { white, gray, red, black, green } from '../utils/colors'
 import { YES_ANSWER, NO_ANSWER } from '../utils/constants'
 
 class Quiz extends Component {
@@ -50,9 +50,9 @@ class Quiz extends Component {
         const { currentIndex, questionMode, percentage } = this.state
         const question = this.props.questions[currentIndex]
         return (
-            <View>
-                <Text>{currentIndex + 1}/{this.props.questions.length}</Text>
-                <Text>{questionMode ? question.question : question.answer}</Text>
+            <View style={styles.container}>
+                <Text style={{ fontSize: 20}}>{currentIndex + 1}/{this.props.questions.length}</Text>
+                <Text style={{ fontSize: 40}}>{questionMode ? question.question : question.answer}</Text>
                 <TouchableOpacity
                     onPress={() => this.setState({ questionMode: !questionMode })}>
                     <Text style={{ fontSize: 20, color: red }}>
@@ -60,12 +60,12 @@ class Quiz extends Component {
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
+                    style={styles.correctBtn}
                     onPress={() => this.check(question.answer, YES_ANSWER)}>
                     <Text style={styles.submitBtnText}>Correct</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.AndroidSubmitBtn}
+                    style={styles.incorrectBtn}
                     onPress={() => this.check(question.answer, NO_ANSWER)}>
                     <Text style={styles.submitBtnText}>Incorrect</Text>
                 </TouchableOpacity>
@@ -92,24 +92,33 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: white
     },
-    iosSubmitBtn: {
-        backgroundColor: purple,
-        padding: 10,
-        borderRadius: 7,
-        height: 45,
-        marginLeft: 40,
-        marginRight: 40,
-    },
-    AndroidSubmitBtn: {
-        backgroundColor: purple,
+    correctBtn: {
+        backgroundColor: green,
+        borderColor: black,
+        borderWidth: 2,
         padding: 10,
         paddingLeft: 30,
         paddingRight: 30,
         height: 45,
-        borderRadius: 2,
-        alignSelf: 'flex-end',
+        borderRadius: 10,
+        alignSelf: 'center',
         justifyContent: 'center',
         alignItems: 'center',
+        margin: 20
+    },
+    incorrectBtn: {
+        backgroundColor: red,
+        borderColor: black,
+        borderWidth: 2,
+        padding: 10,
+        paddingLeft: 30,
+        paddingRight: 30,
+        height: 45,
+        borderRadius: 10,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 20
     },
     submitBtnText: {
         color: white,
