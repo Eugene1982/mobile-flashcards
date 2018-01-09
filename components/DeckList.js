@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import { getCountInfo } from '../utils/helpers'
 import { getDecks } from '../utils/api'
 import { recieveDecks } from '../actions'
 import { connect } from 'react-redux'
-import { white, gray, yellow, black } from '../utils/colors'
+import { gray } from '../utils/colors'
 import { AppLoading } from 'expo'
+import styles from './styles/DeckList';
 
 class DeckList extends Component {
     state = {
@@ -16,7 +17,7 @@ class DeckList extends Component {
         const { dispatch } = this.props
 
         getDecks()
-            .then((decks) => dispatch(recieveDecks(decks)))
+            .then((decks) => this.props.recieveDecks(decks))
             .then(() => this.setState(() => ({ ready: true })))
     }
 
@@ -80,37 +81,6 @@ class DeckList extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        backgroundColor: white
-    },
-    deck: {
-        alignItems: 'center',
-        marginTop: 1,
-        padding: 10
-    },
-    submitBtn: {
-        backgroundColor: white,
-        borderColor: black,
-        borderWidth: 2,
-        padding: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        height: 45,
-        borderRadius: 10,
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    submitBtnText: {
-        color: black,
-        fontSize: 22,
-        textAlign: 'center',
-    },
-})
-
 function mapStateToProps(decks) {
     return {
         decks
@@ -118,5 +88,6 @@ function mapStateToProps(decks) {
 }
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    {recieveDecks}
 )(DeckList)

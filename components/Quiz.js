@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { white, gray, red, black, green } from '../utils/colors'
 import { YES_ANSWER, NO_ANSWER } from '../utils/constants'
+import { red } from '../utils/colors'
+import styles from './styles/Quiz';
 
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -79,7 +80,6 @@ class Quiz extends Component {
     }
 }
 
-
 function mapStateToProps(decks, { navigation }) {
     const { deckName } = navigation.state.params
 
@@ -87,47 +87,6 @@ function mapStateToProps(decks, { navigation }) {
         questions: decks[deckName].questions
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        backgroundColor: white
-    },
-    correctBtn: {
-        backgroundColor: green,
-        borderColor: black,
-        borderWidth: 2,
-        padding: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        height: 45,
-        borderRadius: 10,
-        alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 20
-    },
-    incorrectBtn: {
-        backgroundColor: red,
-        borderColor: black,
-        borderWidth: 2,
-        padding: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        height: 45,
-        borderRadius: 10,
-        alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 20
-    },
-    submitBtnText: {
-        color: white,
-        fontSize: 22,
-        textAlign: 'center',
-    },
-})
 
 export default connect(
     mapStateToProps

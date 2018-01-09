@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity, Text, StyleSheet, TextInput } from 'react-native'
+import { View, TouchableOpacity, Text, TextInput, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
-import { white, black, gray, lightyellow } from '../utils/colors'
 import { addNewCard } from '../actions'
 import { NavigationActions } from 'react-navigation'
 import { addCardToDeck } from '../utils/api'
 import { QUESTION_PLACEHOLDER, ANSWER_PLACEHOLDER } from '../utils/constants'
+import styles from './styles/AddCard';
 
 
 function SubmitBtn({ onPress }) {
@@ -42,7 +42,7 @@ class AddCard extends Component {
     }
 
     callbackFunc = (deck, card) => {
-        this.props.dispatch(addNewCard(deck, card))
+        this.props.addNewCard(deck, card)
         this.resetState()
         this.toDeck()
     }
@@ -76,47 +76,14 @@ class AddCard extends Component {
         const { question, answer } = this.state
         return (
             <View style={styles.container}>
+               <KeyboardAvoidingView>
                 <TextInput value={question} onChangeText={this.handleQuestionTextChange} style={styles.input}></TextInput>
                 <TextInput value={answer} onChangeText={this.handleAnswerTextChange} style={styles.input}></TextInput>
                 <SubmitBtn onPress={this.submit} />
+                </KeyboardAvoidingView>
             </View>)
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        backgroundColor: white
-    },
-    input: {
-        borderColor: gray,
-        borderWidth: 2,
-        borderRadius: 5,
-        backgroundColor: lightyellow,
-        padding: 20,
-        margin: 10
-    },
-    submitBtn: {
-        backgroundColor: white,
-        borderColor: black,
-        borderWidth: 2,
-        padding: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        height: 45,
-        borderRadius: 10,
-        alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 20
-    },
-    submitBtnText: {
-        color: black,
-        fontSize: 22,
-        textAlign: 'center',
-    },
-})
 
 function mapStateToProps(decks, { navigation }) {
     const { deckName } = navigation.state.params
@@ -127,5 +94,6 @@ function mapStateToProps(decks, { navigation }) {
 }
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    {addNewCard}
 )(AddCard)
