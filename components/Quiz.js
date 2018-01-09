@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { YES_ANSWER, NO_ANSWER } from '../utils/constants'
 import { red } from '../utils/colors'
 import styles from './styles/Quiz';
+import { clearLocalNotification } from '../utils/helpers'
+
 
 class Quiz extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -43,6 +45,7 @@ class Quiz extends Component {
 
         if (currentIndex === questions.length - 1) {
            this.setState({ showPercentage: true })
+           clearLocalNotification()
         }
         else {
             this.nextQuestion(currentIndex)

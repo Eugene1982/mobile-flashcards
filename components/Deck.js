@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { gray } from '../utils/colors'
 import { connect } from 'react-redux'
-import styles from './styles/Deck';
+import styles from './styles/Deck'
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers'
 
 
 class Deck extends Component {
@@ -24,6 +25,7 @@ class Deck extends Component {
 
     startQuiz = () => {
         const { deck } = this.props
+        clearLocalNotification().then(setLocalNotification)
         this.props.navigation.navigate(
             'Quiz',
             { deckName: deck.title }
@@ -43,14 +45,14 @@ class Deck extends Component {
                             style={styles.submitBtn} onPress={this.openAddCard}>
                             <Text style={styles.submitBtnText}>Add Card</Text>
                         </TouchableOpacity>
-                        </View>
-                        <View style={styles.buttons}>
+                    </View>
+                    <View style={styles.buttons}>
                         {deck.questions.length > 0 && <TouchableOpacity
                             style={styles.quizBtn} onPress={this.startQuiz}>
                             <Text style={styles.quizBtnText}>Start Quiz</Text>
                         </TouchableOpacity>}
-                        </View>
-                   
+                    </View>
+
                 </View>
             </View>
         )
