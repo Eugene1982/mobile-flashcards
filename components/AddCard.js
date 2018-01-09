@@ -44,12 +44,13 @@ class AddCard extends Component {
     callbackFunc = (deck, card) => {
         this.props.addNewCard(deck, card)
         this.resetState()
-        this.toDeck()
+        this.toDeck(deck)
     }
 
-    toDeck = () => {
+    toDeck = (deck) => {
         this.props.navigation.navigate(
-            'DeckList'
+            'Deck',
+            { deckName: deck.title, count: deck.questions.length }
         )
     }
 

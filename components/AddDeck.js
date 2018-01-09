@@ -39,14 +39,15 @@ class AddDeck extends Component {
     }
 
     callbackFunc = (deckTitle) => {
-        this.props.dispatch(addNewDeck(deckTitle))
+        this.props.addNewDeck(deckTitle)
         this.resetState()
-        this.toDeckList()
+        this.toDeck(deckTitle)
     }
 
-    toDeckList = () => {
+    toDeck = (deckTitle) => {
         this.props.navigation.navigate(
-            'DeckList'
+            'Deck',
+            { deckName: deckTitle, count: 0 }
         )
     }
 
@@ -77,5 +78,6 @@ function mapStateToProps(decks) {
 }
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    {addNewDeck}
 )(AddDeck)
