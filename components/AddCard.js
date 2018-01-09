@@ -63,7 +63,6 @@ class AddCard extends Component {
         })
     }
 
-
     handleAnswerTextChange = (text) => {
         this.setState((state) => { 
             return {

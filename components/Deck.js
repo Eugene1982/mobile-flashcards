@@ -32,6 +32,12 @@ class Deck extends Component {
         )
     }
 
+    redirectToList = () => {
+        this.props.navigation.navigate(
+            'DeckList'
+        )  
+    }
+
     render() {
         const { deck, count } = this.props
         console.log(this.props)
@@ -52,7 +58,12 @@ class Deck extends Component {
                             <Text style={styles.quizBtnText}>Start Quiz</Text>
                         </TouchableOpacity>}
                     </View>
-
+                    <View style={styles.buttons}>
+                        <TouchableOpacity
+                            style={styles.submitBtn} onPress={this.redirectToList}>
+                            <Text style={styles.submitBtnText}>Back to list</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         )

@@ -40,4 +40,23 @@ export default  StyleSheet.create({
         fontSize: 22,
         textAlign: 'center',
     },
+    simpleBtn: {
+        backgroundColor: white,
+        borderColor: black,
+        borderWidth: 2,
+        padding: 10,
+        paddingLeft: 30,
+        paddingRight: 30,
+        height: 45,
+        borderRadius: 10,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 20
+    },
+    simpleBtnText: {
+        color: black,
+        fontSize: 22,
+        textAlign: 'center',
+    },
 })
